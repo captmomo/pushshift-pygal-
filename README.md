@@ -14,7 +14,7 @@ For this dataset, I used the following search parameters:
 Complete url:
 https://elastic.pushshift.io/rs/submissions/_search/?q=(title:/r/singapore%20random%20discussion%20and%20small%20questions%20thread%20AND%20created_utc:>1514750000%20AND%20author:automoderator%20AND%20subreddit:singapore)&sort=created_utc:desc&size=500
 
-Breakdown:
+### Breakdown:
 
 q=(title:/r/singapore random discussion and small questions thread AND created_utc:>1514750000 AND author:automoderator AND subreddit:singapore)
 
@@ -22,9 +22,12 @@ created_utc is in seconds from epoch
 
 Sorted in chronological order, latest first and a search result limit of 500.
 
+### Using requests
+
 Once you are satisfied with the results, use requests to pull it  
   
     import requests
+    import json
     
     url = 'enter your url here'
     res = requests.get(url)
@@ -45,6 +48,8 @@ The data you are most likely interested in is located in data['hits']['hits']
         json.dump(threads, f)
         
  Next step will be to load the json using pandas and then plotting it using pygal.
+ 
+ ## Plotting with pygal and pandas
 
 
 
