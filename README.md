@@ -54,6 +54,9 @@ The data you are most likely interested in is located in data['hits']['hits']
  
  First, load the json into a dataframe use pandas read_json function.
 
+    import pandas as pd
+    import pygal
+    
     df = pd.read_json('output.json', orient='records')
  
 Next we'll use pd.to_datetime to convert the time from seconds since epoch (UTC/GMT) to a proper human readable date time. If you wish to offset the time to your local time use pd.time_delta. For my example, I'll be using +8 hours.
