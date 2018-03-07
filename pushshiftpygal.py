@@ -3,11 +3,18 @@ import json
 import pygal
 import pandas as pd
 
-#create dataframe from json file
-df = pd.read_json('output.json', orient='records')
+def main():
+    #load and create dataframe
+    df = load_json('output.json', hours=8)
+    #plot points
+    scatter(df)
 
-#convert epoch time to utc and timeshift to local Singapore time
-df['created_utc'] = pd.to_datetime(df['created_utc'],unit='s') + pd.Timedelta('08:00:00')
+def load_json(infile, hours=0):
+    '''create dataframe from json file and offset time'''
+    df = pd.read_json(infile, orient='records')
+    #convert epoch time to utc and timeshift to local Singapore time
+    df['timestamp'] = pd.to_datetime(df['created_utc'],unit='s') + pd.Timedelta(hours=hours)
+    return df
 
 def scatter():
     '''plots scatter chart'''
