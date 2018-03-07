@@ -1,7 +1,7 @@
-import pandas as pd
 import json
+
 import pygal
-import time
+import pandas as pd
 
 #create dataframe from json file
 df = pd.read_json('output.json', orient='records')
@@ -36,5 +36,3 @@ def linechart():
         values.append({ 'value' : value, 'label': label, 'xlink': item['url']})
     xy_chart.add('series', values)
     xy_chart.render_in_browser()
-
-linechart()
