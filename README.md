@@ -51,9 +51,48 @@ The data you are most likely interested in is located in data['hits']['hits']
  Next step will be to load the json using pandas and then plotting it using pygal.
  
  ## Plotting with pygal and pandas
+ 
+ First, load the json into a dataframe use pandas read_json function.
 
+    df = pd.read_json('output.json', orient='records')
+ 
+Next we'll use pd.to_datetime to convert the time from seconds since epoch (UTC/GMT) to a proper human readable date time. If you wish to offset the time to your local time use pd.time_delta. For my example, I'll be using +8 hours.
+ 
+     df['timestamp'] = pd.to_datetime(df['created_utc'],unit='s') + pd.Timedelta(hours=8)
+     
+Since this is a time series, I'll be using [pygal.DateTimeLine()](http://www.pygal.org/en/stable/documentation/types/xy.html) 
+In the pushshiftpygal.py, I provided 2 examples - scatter and line chart. 
 
+The 2 main differences are:
 
+* setting stroke=False for the scatter plot
+* defining the values to plot
+
+### Line chart
+
+For the line chart, I created a list of dicts:
+
+    values =[]
+    for index, item in df.iterrows():
+        value = (item['timestamp'],  item['num_comments'])
+        label = 'Score: {0}'.format(item['score'])
+        values.append({ 'value' : value, 'label': label, 'xlink': item['url']})
+
+value is a tuple - (x_coordinate, y_coordinate)
+label is the text in the popup when you hover over the point - you can exclude this if you don't see a need for it.
+xlink is for you to input a url that the user can click when they hover over the point
+For the complete options check out [pygal docs](http://www.pygal.org/en/stable/documentation/configuration/value.html)
+
+Finally create the chart. The current script renders in your browser. You can also save it to a [svg file, png image or a base64 data uri. Check out the docs for the complete set of options](http://www.pygal.org/en/stable/documentation/output.html)
+
+    xy_chart = pygal.DateTimeLine(x_label_rotation=35, show_legend=False)
+    xy_chart.title = "/r/singapore daily thread comment count 1st Jan - 6 Mar 18"
+    xy_chart.x_title = "Date"
+    xy_chart.y_title = "Comments"
+    xy_chart.add('series name', values)
+    xy_chart.render_in_browser()
+    
+ The end product can be viewed [here])(http://bl.ocks.org/captmomo/86566acc4b572fe3663c74a0a97f6aa8)
 
 
 
