@@ -39,6 +39,7 @@ The data you are most likely interested in is located in data['hits']['hits']
     #check the data and get only the stuff you are interested in. for my case, I only want results from the subreddit singapore.
     threads = []
     for item in results:
+        #the info I want is located in '_source'
         subreddit = item['_source']['subreddit']
         if subreddit == 'singapore':
             threads.append(item['_source'])
