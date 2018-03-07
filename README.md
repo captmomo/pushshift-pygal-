@@ -81,9 +81,10 @@ For the line chart, I created a list of dicts:
         label = 'Score: {0}'.format(item['score'])
         values.append({ 'value' : value, 'label': label, 'xlink': item['url']})
 
-value is a tuple - (x_coordinate, y_coordinate)
-label is the text in the popup when you hover over the point - you can exclude this if you don't see a need for it.
-xlink is for you to input a url that the user can click when they hover over the point
+* value is a tuple - (x_coordinate, y_coordinate)
+* label is the text in the popup when you hover over the point - you can exclude this if you don't see a need for it.
+* xlink is for you to input a url that the user can click when they hover over the point
+
 For the complete options check out [pygal docs](http://www.pygal.org/en/stable/documentation/configuration/value.html)
 
 Finally create the chart. The current script renders in your browser. You can also save it to a [svg file, png image or a base64 data uri. Check out the docs for the complete set of options](http://www.pygal.org/en/stable/documentation/output.html)
