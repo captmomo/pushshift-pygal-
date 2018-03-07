@@ -28,7 +28,7 @@ def linechart():
     xy_chart.title = "/r/singapore daily thread comment count 1st Jan - 6 Mar 18"
     xy_chart.x_title = "Date"
     xy_chart.y_title = "Comments"
-    #zip columns to create list of tuples for values to plot
+    #create list of dict for values to plot
     values = []
     for index, item in df.iterrows():
         value = (item['created_utc'],  item['num_comments'])
