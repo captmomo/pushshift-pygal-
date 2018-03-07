@@ -34,7 +34,6 @@ def linechart():
         value = (item['created_utc'],  item['num_comments'])
         label = 'Score: {0}'.format(item['score'])
         values.append({ 'value' : value, 'label': label, 'xlink': item['url']})
-    #values = list(zip(df.created_utc, df.num_comments))
     xy_chart.add('series', values)
     xy_chart.render_in_browser()
 
