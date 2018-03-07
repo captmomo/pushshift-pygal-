@@ -30,7 +30,7 @@ Once you are satisfied with the results, use requests to pull it
     res = requests.get(url)
     data = res.json()
     
-The data that you are most likely interested in is located in data['hits']['hits']
+The data you are most likely interested in is located in data['hits']['hits']
 
     results = data['hits']['hits']
     #check the data and get only the stuff you are interested in. for my case, I only want results from the subreddit singapore.
