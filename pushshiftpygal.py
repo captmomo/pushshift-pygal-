@@ -3,7 +3,9 @@ import json
 import pygal
 import time
 
+#create dataframe from json file
 df = pd.read_json('output.json', orient='records')
+
 #convert epoch time to utc and timeshift to local Singapore time
 df['created_utc'] = pd.to_datetime(df['created_utc'],unit='s') + pd.Timedelta('08:00:00')
 
@@ -15,7 +17,9 @@ def scatter():
     xy_chart.y_title = "Comments"
     for index, item in df.iterrows():
         xy_chart.add(item['created_utc'], [
-            {'value': (item['created_utc'],  item['num_comments']), 'label':'Score -{}'.format(item['score'])}])
+            {'value': (item['created_utc'],  item['num_comments']), 
+            'label':'Score: {0}'.format(item['score']),
+            'xlink': item['url']}])
     xy_chart.render_in_browser()
 
 def linechart():
@@ -25,7 +29,12 @@ def linechart():
     xy_chart.x_title = "Date"
     xy_chart.y_title = "Comments"
     #zip columns to create list of tuples for values to plot
-    values = list(zip(df.created_utc, df.num_comments))
+    values = []
+    for index, item in df.iterrows():
+        value = (item['created_utc'],  item['num_comments'])
+        label = 'Score: {0}'.format(item['score'])
+        values.append({ 'value' : value, 'label': label, 'xlink': item['url']})
+    #values = list(zip(df.created_utc, df.num_comments))
     xy_chart.add('series', values)
     xy_chart.render_in_browser()
 
