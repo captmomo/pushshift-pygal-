@@ -96,7 +96,7 @@ Finally create the chart. The current script renders in your browser. You can al
     xy_chart.add('series name', values)
     xy_chart.render_in_browser()
     
- The end product can be viewed [here](http://bl.ocks.org/captmomo/86566acc4b572fe3663c74a0a97f6aa8)
+ The end product can be viewed [here](http://bl.ocks.org/weirdyang/86566acc4b572fe3663c74a0a97f6aa8)
 
 
 
